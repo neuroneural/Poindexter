@@ -146,7 +146,7 @@ def append_authors(meta_prompt, authors):
     if ("[Failed match flag]" in authors):
         return meta_prompt
     if (len(authors) == 1):
-        return meta_prompt + "writen by " + author + " "
+        return meta_prompt + "writen by " + authors[0] + " "
     meta_prompt += "written by "
     for i in range(len(authors)-1):
         meta_prompt += authors[i] + ", "
