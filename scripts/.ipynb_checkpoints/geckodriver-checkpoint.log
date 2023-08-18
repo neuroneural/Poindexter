@@ -1,0 +1,16 @@
+1692211587990	geckodriver	INFO	Listening on 127.0.0.1:52813
+1692211588503	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... te" "--remote-debugging-port" "40729" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileoZ4HkV"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1692211589201	Marionette	INFO	Marionette enabled
+1692211589205	Marionette	INFO	Listening on port 46527
+Read port: 46527
+WebDriver BiDi listening on ws://127.0.0.1:40729
+1692211589366	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileoZ4HkV/search.json.mozlz4", (void 0)))
+DevTools listening on ws://127.0.0.1:40729/devtools/browser/38e8fe19-ac15-40c0-a9e5-effa88ee025f
+JavaScript warning: https://ieeexplore.ieee.org/assets/vendor/fingerprintjs2/fingerprint2.js?cv=20230808_000001, line 786: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://ieeexplore.ieee.org/assets/vendor/fingerprintjs2/fingerprint2.js?cv=20230808_000001, line 446: TypeError: h is undefined
+1692211593120	Marionette	INFO	Stopped listening on port 46527

@@ -3,10 +3,11 @@ from dotenv                 import load_dotenv
 from pathlib                import Path
 from itertools              import chain
 from io                     import BytesIO
+from datetime               import  datetime
+import PyPDF2
 import re
 import json
-
-
+import requests
 import openai
 import os
 
@@ -34,6 +35,10 @@ def get_windows(sentences: list[str], max_words:int =4000, overlap:int=200) -> l
 
 def get_sentences(file_path: str) -> list[str]:
     text =                      extract_text(file_path)
+    sentences =                 re.split(r'[.!?]', text)
+    sentences =                 [sentence.strip() for sentence in sentences if sentence.strip()]
+    return sentences
+def get_sentences_from_text(text:str) -> list[str]:
     sentences =                 re.split(r'[.!?]', text)
     sentences =                 [sentence.strip() for sentence in sentences if sentence.strip()]
     return sentences
@@ -130,7 +135,49 @@ def extract_chunk(chunk, extraction_count:int = 5):
     sorted_extractions =                sorted(extractions, key=lambda x: x[3], reverse=True)
     best_extraction =                   sorted_extractions[0]
     return best_extraction
+def get_pdf_text(url):
+    arxiv_id = url[22:]
+    url = "https://arxiv.org/pdf/" + arxiv_id + ".pdf"
+    response = requests.get(url)
+    # Ensure the request was successful
+    if response.status_code == 200:
+        # Step 2: Converting the PDF to a more readable format
+        with BytesIO(response.content) as open_pdf_file:
+            read_pdf = PyPDF2.PdfReader(open_pdf_file)
+            num_pages = len(read_pdf.pages)
+            # Step 3: Extracting the text
+            text_content = ""
+            for i in range(num_pages):
+                page = read_pdf.pages[i]
+                text_content += page.extract_text()
+        return(text_content)
+    else:
+        return("Pattern not found [Failed match flag]")
+def extract_from_url(url):
+    text =                  get_pdf_text(url)
+    sentences =             get_sentences_from_text(text)
+    windows =               list(get_windows(sentences))
+    print(len(windows))
+    extractions =           []
+    for i, chunk  in enumerate(windows):
+        print(i)
+        extraction =        extract_chunk(str(chunk))
+        extraction.append(i)
+        extractions.append(extraction)
+    data =                  {
+            "url" : url,
+            "data": extractions
+            }
 
+    time = formatted_time()
+    savepath =              "./cache/" + time+ ".json"
+    with open(savepath, "w") as f:
+        json.dump(data, f)
+
+def formatted_time() -> str:
+    now =                       datetime.now()
+    formatted_time =            now.strftime('%H:%M-%d-%m-%Y')
+    return formatted_time
 def extract_doc(filepath, savepath):
     if os.path.exists(savepath):
         return True
@@ -154,17 +201,5 @@ def load_extraction(filepath):
 
 
 if __name__ == "__main__":
-    file_paths = [
-        './pdf/attention_is_all_you_need.pdf',
-        './pdf/lbdl.pdf',
-        './pdf/voyager.pdf'
-    ]
-    paper_list = [
-        "Attention is all you need",
-        "The little book of deep learning",
-        "VOYAGER: An Open-Ended Embodied Agent with Large Language Models",
-    ]
-    paper_index = 2
-    paper =                 [paper_index]
-    filepath =              file_paths[paper_index]
-    extract_doc(filepath, "./cache/voyager.json")
+    url = input("arXiv abs link: ")
+    extract_from_url(url)
