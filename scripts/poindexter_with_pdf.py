@@ -224,7 +224,7 @@ def format_meta_prompt(content, level):
 def poindexter(url = "", pdfpath = "", level = "child"):
     if url != "":
         content = fetch_everything(url)
-    elif filepath != "":
+    elif pdfpath != "":
         content = fetch_everything_from_pdf(pdfpath)
         print("pdf detected")
     
