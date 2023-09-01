@@ -46,7 +46,7 @@ def message(payload):
                 #summary = dumb_down_abstract(findArxivLink(text))
                 thread = threading.Thread(target=messageDumbingItDown, args=(findArxivLink(text),message_ts,channel_id,checkLevel(text)))
                 thread.start()
-                finalMessage = f"I see you sent an Arxiv {link}, allow me to explain :point_up: :nerd_face: "
+                finalMessage = f"I see you sent an Arxiv {link}, {quirkyPoindexter()} :point_up: :nerd_face:"
                 client.chat_postMessage(channel=channel_id, text=finalMessage,thread_ts=message_ts)
 def contatinsArxivLink(txt):
     pattern = r'https://arxiv\.org/abs/[\d.]+'

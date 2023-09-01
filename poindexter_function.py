@@ -11,6 +11,7 @@ import urllib.request
 import requests
 import PyPDF2
 from io import BytesIO
+import random
 env_path = Path('.')/'.env'
 load_dotenv(dotenv_path=env_path)
 openai.api_key = token=os.environ['CHAT_TOKEN']
@@ -212,3 +213,23 @@ def poindexter(url, level = "child"):
     )
     return response["choices"][0]["message"]["content"]
 print(poindexter(test_url, "child"))
+
+def quirkyPoindexter():
+    quirkyResponses = [
+            "Its ackshually quite simple...",
+            "Okay okay, allow me to step in here",
+            "Let me put this in simple terms for you",
+            "According to my calculations...",
+            "The way I see it...",
+            "Call me Steve Urkle the way I'm about to explain this for you",
+            "Let me lay it out for you all",
+            "To put it in laymans terms...",
+            "Nerd life is so much better than regular life",
+            "Nerd life is so much better than regular life",
+            "Nerd life is so much better than regular life",
+            "Nerd life is so much better than regular life",
+    ]
+    rand = random.randint(0,len(quirkyResponses)-1)
+    return quirkyResponses[rand]
+
+    
