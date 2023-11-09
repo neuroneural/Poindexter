@@ -19,7 +19,7 @@ load_dotenv(dotenv_path=env_path)
 poindexter_id = token=os.environ['POINDEXTER_ID']
 app = Flask(__name__)
 slack_event_adapter = SlackEventAdapter(
-    os.environ['SIGNING_SECRET'], '/slack/events',app)
+    os.environ['SIGNING_SECRET'], '/poindexter/',app)
 client = slack.WebClient(token=os.environ['SLACK_TOKEN'])
 blackList=['U05LN4UMP7U']
 wakeUp()
@@ -58,7 +58,7 @@ def findArxivLink(txt):
     return match.group(0)
 
 
-@app.route('/dumbitdown', methods=['GET','POST'])
+@app.route('/poindexter/dumbitdown', methods=['GET','POST'])
 def returnDumbedDown():
     data = request.form
     text = data.get('text')
@@ -99,36 +99,36 @@ def dumbingItDown(response_url,link,level):
     })
 
 
-@app.route('/getAuthor', methods=['GET','POST'])
+@app.route('/poindexter/getAuthor', methods=['GET','POST'])
 def returnAuth():
     data = request.form
     link = data.get('text')
     return get_authors(link)
 
-@app.route('/getTitle', methods=['GET','POST'])
+@app.route('/poindexter/getTitle', methods=['GET','POST'])
 def returnTitle():
     data = request.form
     link = data.get('text')
     return get_title(link)
-@app.route('/getAbstract', methods=['GET','POST'])
+@app.route('/poindexter/getAbstract', methods=['GET','POST'])
 def returnAbs():
     data = request.form
     link = data.get('text')
     return get_abstract(link)
 
-@app.route('/getIntro', methods=['GET','POST'])
+@app.route('/poindexter/getIntro', methods=['GET','POST'])
 def returnIntro():
     data = request.form
     link = data.get('text')
     return get_introduction(link)
 
-@app.route('/getConclusion', methods=['GET','POST'])
+@app.route('/poindexter/getConclusion', methods=['GET','POST'])
 def returnConclusion():
     data = request.form
     link = data.get('text')
     return get_conclusion(link)
 
 if __name__ == "__main__":
-    app.run(debug=True, port=4999)
+    app.run(debug=True, port=4990)
 if 1==1:
     print("0")

@@ -225,9 +225,9 @@ def quirkyPoindexter():
             "Let me lay it out for you all",
             "To put it in laymans terms...",
             "Nerd life is so much better than regular life",
-            "Nerd life is so much better than regular life",
-            "Nerd life is so much better than regular life",
-            "Nerd life is so much better than regular life",
+            "Allow me to pointout the dexes",
+            "Reading is rad",
+            "Ummmm, actually lets break this down",
     ]
     rand = random.randint(0,len(quirkyResponses)-1)
     return quirkyResponses[rand]
